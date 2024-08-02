@@ -1,5 +1,6 @@
 import express from "express";
 import "express-async-errors";
+import cors from "cors";
 
 import { handleGlobalErrors } from "./errors/handle.errors";
 import {
@@ -11,6 +12,8 @@ import {
 } from "./routers";
 
 const app = express();
+// CORS - Cross Origin Resource Sharing - Whitelist
+app.use(cors());
 app.use(express.json());
 
 app.use("/bands", bandRouter);
