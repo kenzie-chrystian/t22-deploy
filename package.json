@@ -1,8 +1,11 @@
 {
   "description": "",
   "scripts": {
+    "start": "node dist/app.js",
+    "build": "tsc",
     "dev": "tsnd --cls src/app.ts",
     "migrate": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
     "studio": "prisma studio"
   },
   "devDependencies": {

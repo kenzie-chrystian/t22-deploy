@@ -12,15 +12,18 @@ export class UserService {
   };
 
   create = async (payload: UserCreate) => {
-    // v1. Hasheando a senha
-    // Hashing é um processo IRREVERSIVEL.
     payload.password = await bcryptjs.hash(payload.password, 10);
     const user = await prisma.user.create({ data: payload });
 
-    // removendo password do retorno
-    // forma 1 (js puro)
-    // const { password, ...userWithoutPassword } = user;
-    // return userWithoutPassword;
+    return userWithoutPasswordSchema.parse(user);
+  };
+
+  findOne = async (id: number) => {
+    const user = await prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+      throw new ApiError("User not found", 404);
+    }
 
     return userWithoutPasswordSchema.parse(user);
   };

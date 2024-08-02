@@ -34,14 +34,6 @@ export class PlaylistService {
   };
 
   addMusic = async (playlistId: number, musicId: number) => {
-    const playlist = await prisma.playlist.findUnique({
-      where: { id: playlistId },
-    });
-
-    if (!playlist) {
-      throw new ApiError("Playlist not found", 404);
-    }
-
     await this.musicService.findOne(musicId);
 
     const updatedPlaylist = await prisma.playlist.update({
